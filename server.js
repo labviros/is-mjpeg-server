@@ -22,31 +22,35 @@ amqp.connect(broker_uri, (err, connection) => {
       channel.consume(queue, (msg) => {
         observer.next(msg)
       }, { noAck: true });
-    });
+    })
+      .publish()
+      .refCount();
 
     let subscriptions = {} // ref count for subscriptions
 
     const configureCamera = (id, fps, color) => {
       let samplingSettings = new common.SamplingSettings();
       samplingSettings.setFrequency(fps);
-      
+
       let imageSettings = new image.ImageSettings();
       let colorSpace = new image.ColorSpace();
       colorSpace.setValue(image.ColorSpaces[color]);
       imageSettings.setColorSpace(colorSpace);
-      
+
       let config = new camera.CameraConfig();
       config.setSampling(samplingSettings);
       config.setImage(imageSettings);
       channel.publish(exchange, `CameraGateway.${id}.SetConfig`, new Buffer(config.serializeBinary()));
     };
-    
+
     const server = express();
     server.get('/:id?', (req, res) => {
       let id = _.defaultTo(req.params.id, 0);
       let fps = _.defaultTo(req.query.fps, 10);
       let color = _.defaultTo(req.query.color, 'gray').toUpperCase();
       configureCamera(id, fps, color);
+
+      console.log(`[${new Date()}][New Consumer][id:${id}][fps:${fps}][color:${color}]`);
 
       let topic = `CameraGateway.${id}.Frame`;
       channel.bindQueue(queue, exchange, topic);
