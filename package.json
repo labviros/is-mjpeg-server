@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "docker": "docker build -t viros/mjpeg-server:1 .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
