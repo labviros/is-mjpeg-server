@@ -5,11 +5,12 @@ const uuidv1 = require('uuid/v1');
 const _ = require('lodash');
 const express = require('express');
 
-const image = require('./schemas/image_pb');
-const camera = require('./schemas/camera_pb');
-const common = require('./schemas/common_pb');
+const wrappers = require('google-protobuf/google/protobuf/wrappers_pb.js');
+const image = require('./is/msgs/image_pb');
+const camera = require('./is/msgs/camera_pb');
+const common = require('./is/msgs/common_pb');
 
-const broker_uri = _.defaultTo(process.env.IS_URI, 'amqp://rmq.is:30000');
+const broker_uri = _.defaultTo(process.env.IS_URI, 'amqp://localhost');
 const exchange = 'is';
 const queue = `camera-viewer-server/${uuidv1()}`
 const port = _.defaultTo(process.env.IS_PORT, 3000);
@@ -17,6 +18,7 @@ const port = _.defaultTo(process.env.IS_PORT, 3000);
 amqp.connect(broker_uri, (err, connection) => {
   connection.createChannel((err, channel) => {
     channel.assertQueue(queue, { durable: false, autoDelete: true });
+    channel.bindQueue(queue, exchange, queue);
 
     const msgs = Rx.Observable.create((observer) => {
       channel.consume(queue, (msg) => {
@@ -28,33 +30,52 @@ amqp.connect(broker_uri, (err, connection) => {
 
     let subscriptions = {} // ref count for subscriptions
 
-    const configureCamera = (id, fps, color) => {
-      let samplingSettings = new common.SamplingSettings();
-      samplingSettings.setFrequency(fps);
-
-      let imageSettings = new image.ImageSettings();
-      let colorSpace = new image.ColorSpace();
-      colorSpace.setValue(image.ColorSpaces[color]);
-      imageSettings.setColorSpace(colorSpace);
-
+    const configureCamera = (id, query) => {
       let config = new camera.CameraConfig();
-      config.setSampling(samplingSettings);
-      config.setImage(imageSettings);
-      channel.publish(exchange, `CameraGateway.${id}.SetConfig`, new Buffer(config.serializeBinary()));
+      let has_fps = _.has(query, 'fps')
+      let has_color = _.has(query, 'color')
+
+      if (has_fps) {
+        let samplingSettings = new common.SamplingSettings();
+        let wrapper = new wrappers.FloatValue()
+        wrapper.setValue(query.fps)
+        samplingSettings.setFrequency(wrapper);
+        config.setSampling(samplingSettings);
+      }
+
+      if (has_color) {
+        let imageSettings = new image.ImageSettings();
+        let colorSpace = new image.ColorSpace();
+        colorSpace.setValue(image.ColorSpaces[query.color.toUpperCase()]);
+        imageSettings.setColorSpace(colorSpace);
+        config.setImage(imageSettings);
+      }
+
+      if (has_fps || has_color) {
+        console.log(`[>][${new Date()}][${id}]`, config.toObject());
+        channel.publish(exchange, `CameraGateway.${id}.SetConfig`, new Buffer(config.serializeBinary()), {
+          replyTo: queue
+        });
+      }
+
+      console.log(`[+][${new Date()}][${id}]`)
     };
 
     const server = express();
+
     server.get('/:id?', (req, res) => {
       let id = _.defaultTo(req.params.id, 0);
-      let fps = _.defaultTo(req.query.fps, 10);
-      let color = _.defaultTo(req.query.color, 'gray').toUpperCase();
-      configureCamera(id, fps, color);
 
-      console.log(`[${new Date()}][New Consumer][id:${id}][fps:${fps}][color:${color}]`);
+      let isGatewayId = !_.isNaN(parseInt(id));
+      let topic = isGatewayId ? `CameraGateway.${id}.Frame` : id;
+      if (isGatewayId) {
+        configureCamera(id, req.query);
+      }
 
-      let topic = `CameraGateway.${id}.Frame`;
-      channel.bindQueue(queue, exchange, topic);
-      subscriptions[topic] = typeof (subscriptions[topic]) == 'undefined' ? 1 : subscriptions[topic] + 1;
+      subscriptions[topic] = _.has(subscriptions, topic) ? subscriptions[topic] + 1 : 1;
+      if (subscriptions[topic] == 1) {
+        channel.bindQueue(queue, exchange, topic);
+      }
 
       res.writeHead(200, {
         'Content-Type': 'multipart/x-mixed-replace; boundary=--myboundary',
@@ -64,13 +85,15 @@ amqp.connect(broker_uri, (err, connection) => {
       });
 
       let stream = msgs.filter(msg => msg.fields.routingKey == topic)
+        .throttle(ev => Rx.Observable.interval(1000 / 15))
         .subscribe((msg) => {
-          let jpg = image.Image.deserializeBinary(new Uint8Array(msg.content)).getData();
-          res.write(`--myboundary\nContent-Type: image/jpg\nContent-length: ${jpg.length}\n\n`);
-          res.write(new Buffer(jpg));
+          let data = image.Image.deserializeBinary(new Uint8Array(msg.content)).getData();
+          res.write(`--myboundary\nContent-Type: image/jpg\nContent-length: ${data.length}\n\n`);
+          res.write(new Buffer(data))
         });
 
       req.on('close', () => {
+        console.log(`[-][${new Date()}][${id}]`);
         stream.unsubscribe()
         subscriptions[topic] -= 1;
         if (subscriptions[topic] == 0) { channel.unbindQueue(queue, exchange, topic); }

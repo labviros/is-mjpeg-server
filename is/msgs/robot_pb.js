@@ -11,7 +11,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var common_pb = require('./common_pb.js');
+var is_msgs_common_pb = require('../../is/msgs/common_pb.js');
 goog.exportSymbol('proto.is.robot.FinalPoseTask', null, global);
 goog.exportSymbol('proto.is.robot.PathTask', null, global);
 goog.exportSymbol('proto.is.robot.RobotConfig', null, global);
@@ -65,7 +65,7 @@ proto.is.robot.RobotConfig.prototype.toObject = function(opt_includeInstance) {
  */
 proto.is.robot.RobotConfig.toObject = function(includeInstance, msg) {
   var f, obj = {
-    speed: (f = msg.getSpeed()) && common_pb.Speed.toObject(includeInstance, f)
+    speed: (f = msg.getSpeed()) && is_msgs_common_pb.Speed.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -103,8 +103,8 @@ proto.is.robot.RobotConfig.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Speed;
-      reader.readMessage(value,common_pb.Speed.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Speed;
+      reader.readMessage(value,is_msgs_common_pb.Speed.deserializeBinaryFromReader);
       msg.setSpeed(value);
       break;
     default:
@@ -141,7 +141,7 @@ proto.is.robot.RobotConfig.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       1,
       f,
-      common_pb.Speed.serializeBinaryToWriter
+      is_msgs_common_pb.Speed.serializeBinaryToWriter
     );
   }
 };
@@ -153,7 +153,7 @@ proto.is.robot.RobotConfig.serializeBinaryToWriter = function(message, writer) {
  */
 proto.is.robot.RobotConfig.prototype.getSpeed = function() {
   return /** @type{?proto.is.common.Speed} */ (
-    jspb.Message.getWrapperField(this, common_pb.Speed, 1));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Speed, 1));
 };
 
 
@@ -224,7 +224,7 @@ proto.is.robot.FinalPoseTask.prototype.toObject = function(opt_includeInstance) 
  */
 proto.is.robot.FinalPoseTask.toObject = function(includeInstance, msg) {
   var f, obj = {
-    goal: (f = msg.getGoal()) && common_pb.Pose.toObject(includeInstance, f)
+    goal: (f = msg.getGoal()) && is_msgs_common_pb.Pose.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -262,8 +262,8 @@ proto.is.robot.FinalPoseTask.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Pose;
-      reader.readMessage(value,common_pb.Pose.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Pose;
+      reader.readMessage(value,is_msgs_common_pb.Pose.deserializeBinaryFromReader);
       msg.setGoal(value);
       break;
     default:
@@ -300,7 +300,7 @@ proto.is.robot.FinalPoseTask.serializeBinaryToWriter = function(message, writer)
     writer.writeMessage(
       1,
       f,
-      common_pb.Pose.serializeBinaryToWriter
+      is_msgs_common_pb.Pose.serializeBinaryToWriter
     );
   }
 };
@@ -312,7 +312,7 @@ proto.is.robot.FinalPoseTask.serializeBinaryToWriter = function(message, writer)
  */
 proto.is.robot.FinalPoseTask.prototype.getGoal = function() {
   return /** @type{?proto.is.common.Pose} */ (
-    jspb.Message.getWrapperField(this, common_pb.Pose, 1));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Pose, 1));
 };
 
 
@@ -391,7 +391,7 @@ proto.is.robot.PathTask.prototype.toObject = function(opt_includeInstance) {
 proto.is.robot.PathTask.toObject = function(includeInstance, msg) {
   var f, obj = {
     positionsList: jspb.Message.toObjectList(msg.getPositionsList(),
-    common_pb.Position.toObject, includeInstance)
+    is_msgs_common_pb.Position.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -429,8 +429,8 @@ proto.is.robot.PathTask.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Position;
-      reader.readMessage(value,common_pb.Position.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Position;
+      reader.readMessage(value,is_msgs_common_pb.Position.deserializeBinaryFromReader);
       msg.addPositions(value);
       break;
     default:
@@ -467,7 +467,7 @@ proto.is.robot.PathTask.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       1,
       f,
-      common_pb.Position.serializeBinaryToWriter
+      is_msgs_common_pb.Position.serializeBinaryToWriter
     );
   }
 };
@@ -479,7 +479,7 @@ proto.is.robot.PathTask.serializeBinaryToWriter = function(message, writer) {
  */
 proto.is.robot.PathTask.prototype.getPositionsList = function() {
   return /** @type{!Array.<!proto.is.common.Position>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_pb.Position, 1));
+    jspb.Message.getRepeatedWrapperField(this, is_msgs_common_pb.Position, 1));
 };
 
 
@@ -559,9 +559,9 @@ proto.is.robot.TrajectoryTask.prototype.toObject = function(opt_includeInstance)
 proto.is.robot.TrajectoryTask.toObject = function(includeInstance, msg) {
   var f, obj = {
     positionsList: jspb.Message.toObjectList(msg.getPositionsList(),
-    common_pb.Position.toObject, includeInstance),
+    is_msgs_common_pb.Position.toObject, includeInstance),
     speedsList: jspb.Message.toObjectList(msg.getSpeedsList(),
-    common_pb.Speed.toObject, includeInstance)
+    is_msgs_common_pb.Speed.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -599,13 +599,13 @@ proto.is.robot.TrajectoryTask.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Position;
-      reader.readMessage(value,common_pb.Position.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Position;
+      reader.readMessage(value,is_msgs_common_pb.Position.deserializeBinaryFromReader);
       msg.addPositions(value);
       break;
     case 2:
-      var value = new common_pb.Speed;
-      reader.readMessage(value,common_pb.Speed.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Speed;
+      reader.readMessage(value,is_msgs_common_pb.Speed.deserializeBinaryFromReader);
       msg.addSpeeds(value);
       break;
     default:
@@ -642,7 +642,7 @@ proto.is.robot.TrajectoryTask.serializeBinaryToWriter = function(message, writer
     writer.writeRepeatedMessage(
       1,
       f,
-      common_pb.Position.serializeBinaryToWriter
+      is_msgs_common_pb.Position.serializeBinaryToWriter
     );
   }
   f = message.getSpeedsList();
@@ -650,7 +650,7 @@ proto.is.robot.TrajectoryTask.serializeBinaryToWriter = function(message, writer
     writer.writeRepeatedMessage(
       2,
       f,
-      common_pb.Speed.serializeBinaryToWriter
+      is_msgs_common_pb.Speed.serializeBinaryToWriter
     );
   }
 };
@@ -662,7 +662,7 @@ proto.is.robot.TrajectoryTask.serializeBinaryToWriter = function(message, writer
  */
 proto.is.robot.TrajectoryTask.prototype.getPositionsList = function() {
   return /** @type{!Array.<!proto.is.common.Position>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_pb.Position, 1));
+    jspb.Message.getRepeatedWrapperField(this, is_msgs_common_pb.Position, 1));
 };
 
 
@@ -693,7 +693,7 @@ proto.is.robot.TrajectoryTask.prototype.clearPositionsList = function() {
  */
 proto.is.robot.TrajectoryTask.prototype.getSpeedsList = function() {
   return /** @type{!Array.<!proto.is.common.Speed>} */ (
-    jspb.Message.getRepeatedWrapperField(this, common_pb.Speed, 2));
+    jspb.Message.getRepeatedWrapperField(this, is_msgs_common_pb.Speed, 2));
 };
 
 
@@ -796,7 +796,7 @@ proto.is.robot.RobotTask.toObject = function(includeInstance, msg) {
     path: (f = msg.getPath()) && proto.is.robot.PathTask.toObject(includeInstance, f),
     trajectory: (f = msg.getTrajectory()) && proto.is.robot.TrajectoryTask.toObject(includeInstance, f),
     allowedError: +jspb.Message.getFieldWithDefault(msg, 14, 0.0),
-    sampling: (f = msg.getSampling()) && common_pb.SamplingSettings.toObject(includeInstance, f)
+    sampling: (f = msg.getSampling()) && is_msgs_common_pb.SamplingSettings.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -853,8 +853,8 @@ proto.is.robot.RobotTask.deserializeBinaryFromReader = function(msg, reader) {
       msg.setAllowedError(value);
       break;
     case 15:
-      var value = new common_pb.SamplingSettings;
-      reader.readMessage(value,common_pb.SamplingSettings.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.SamplingSettings;
+      reader.readMessage(value,is_msgs_common_pb.SamplingSettings.deserializeBinaryFromReader);
       msg.setSampling(value);
       break;
     default:
@@ -922,7 +922,7 @@ proto.is.robot.RobotTask.serializeBinaryToWriter = function(message, writer) {
     writer.writeMessage(
       15,
       f,
-      common_pb.SamplingSettings.serializeBinaryToWriter
+      is_msgs_common_pb.SamplingSettings.serializeBinaryToWriter
     );
   }
 };
@@ -1029,7 +1029,7 @@ proto.is.robot.RobotTask.prototype.getAllowedError = function() {
 
 /** @param {number} value */
 proto.is.robot.RobotTask.prototype.setAllowedError = function(value) {
-  jspb.Message.setProto3FloatField(this, 14, value);
+  jspb.Message.setField(this, 14, value);
 };
 
 
@@ -1039,7 +1039,7 @@ proto.is.robot.RobotTask.prototype.setAllowedError = function(value) {
  */
 proto.is.robot.RobotTask.prototype.getSampling = function() {
   return /** @type{?proto.is.common.SamplingSettings} */ (
-    jspb.Message.getWrapperField(this, common_pb.SamplingSettings, 15));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.SamplingSettings, 15));
 };
 
 
@@ -1110,11 +1110,12 @@ proto.is.robot.RobotControllerProgress.prototype.toObject = function(opt_include
  */
 proto.is.robot.RobotControllerProgress.toObject = function(includeInstance, msg) {
   var f, obj = {
-    currentSpeed: (f = msg.getCurrentSpeed()) && common_pb.Speed.toObject(includeInstance, f),
-    currentPose: (f = msg.getCurrentPose()) && common_pb.Pose.toObject(includeInstance, f),
-    desiredPose: (f = msg.getDesiredPose()) && common_pb.Pose.toObject(includeInstance, f),
+    currentSpeed: (f = msg.getCurrentSpeed()) && is_msgs_common_pb.Speed.toObject(includeInstance, f),
+    currentPose: (f = msg.getCurrentPose()) && is_msgs_common_pb.Pose.toObject(includeInstance, f),
+    desiredPose: (f = msg.getDesiredPose()) && is_msgs_common_pb.Pose.toObject(includeInstance, f),
     error: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
-    done: jspb.Message.getFieldWithDefault(msg, 5, false)
+    done: jspb.Message.getFieldWithDefault(msg, 5, false),
+    sources: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -1152,18 +1153,18 @@ proto.is.robot.RobotControllerProgress.deserializeBinaryFromReader = function(ms
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.Speed;
-      reader.readMessage(value,common_pb.Speed.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Speed;
+      reader.readMessage(value,is_msgs_common_pb.Speed.deserializeBinaryFromReader);
       msg.setCurrentSpeed(value);
       break;
     case 2:
-      var value = new common_pb.Pose;
-      reader.readMessage(value,common_pb.Pose.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Pose;
+      reader.readMessage(value,is_msgs_common_pb.Pose.deserializeBinaryFromReader);
       msg.setCurrentPose(value);
       break;
     case 3:
-      var value = new common_pb.Pose;
-      reader.readMessage(value,common_pb.Pose.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Pose;
+      reader.readMessage(value,is_msgs_common_pb.Pose.deserializeBinaryFromReader);
       msg.setDesiredPose(value);
       break;
     case 4:
@@ -1173,6 +1174,10 @@ proto.is.robot.RobotControllerProgress.deserializeBinaryFromReader = function(ms
     case 5:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setDone(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setSources(value);
       break;
     default:
       reader.skipField();
@@ -1208,7 +1213,7 @@ proto.is.robot.RobotControllerProgress.serializeBinaryToWriter = function(messag
     writer.writeMessage(
       1,
       f,
-      common_pb.Speed.serializeBinaryToWriter
+      is_msgs_common_pb.Speed.serializeBinaryToWriter
     );
   }
   f = message.getCurrentPose();
@@ -1216,7 +1221,7 @@ proto.is.robot.RobotControllerProgress.serializeBinaryToWriter = function(messag
     writer.writeMessage(
       2,
       f,
-      common_pb.Pose.serializeBinaryToWriter
+      is_msgs_common_pb.Pose.serializeBinaryToWriter
     );
   }
   f = message.getDesiredPose();
@@ -1224,7 +1229,7 @@ proto.is.robot.RobotControllerProgress.serializeBinaryToWriter = function(messag
     writer.writeMessage(
       3,
       f,
-      common_pb.Pose.serializeBinaryToWriter
+      is_msgs_common_pb.Pose.serializeBinaryToWriter
     );
   }
   f = message.getError();
@@ -1241,6 +1246,13 @@ proto.is.robot.RobotControllerProgress.serializeBinaryToWriter = function(messag
       f
     );
   }
+  f = message.getSources();
+  if (f !== 0) {
+    writer.writeInt32(
+      6,
+      f
+    );
+  }
 };
 
 
@@ -1250,7 +1262,7 @@ proto.is.robot.RobotControllerProgress.serializeBinaryToWriter = function(messag
  */
 proto.is.robot.RobotControllerProgress.prototype.getCurrentSpeed = function() {
   return /** @type{?proto.is.common.Speed} */ (
-    jspb.Message.getWrapperField(this, common_pb.Speed, 1));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Speed, 1));
 };
 
 
@@ -1280,7 +1292,7 @@ proto.is.robot.RobotControllerProgress.prototype.hasCurrentSpeed = function() {
  */
 proto.is.robot.RobotControllerProgress.prototype.getCurrentPose = function() {
   return /** @type{?proto.is.common.Pose} */ (
-    jspb.Message.getWrapperField(this, common_pb.Pose, 2));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Pose, 2));
 };
 
 
@@ -1310,7 +1322,7 @@ proto.is.robot.RobotControllerProgress.prototype.hasCurrentPose = function() {
  */
 proto.is.robot.RobotControllerProgress.prototype.getDesiredPose = function() {
   return /** @type{?proto.is.common.Pose} */ (
-    jspb.Message.getWrapperField(this, common_pb.Pose, 3));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Pose, 3));
 };
 
 
@@ -1345,7 +1357,7 @@ proto.is.robot.RobotControllerProgress.prototype.getError = function() {
 
 /** @param {number} value */
 proto.is.robot.RobotControllerProgress.prototype.setError = function(value) {
-  jspb.Message.setProto3FloatField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -1362,7 +1374,22 @@ proto.is.robot.RobotControllerProgress.prototype.getDone = function() {
 
 /** @param {boolean} value */
 proto.is.robot.RobotControllerProgress.prototype.setDone = function(value) {
-  jspb.Message.setProto3BooleanField(this, 5, value);
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional int32 sources = 6;
+ * @return {number}
+ */
+proto.is.robot.RobotControllerProgress.prototype.getSources = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/** @param {number} value */
+proto.is.robot.RobotControllerProgress.prototype.setSources = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

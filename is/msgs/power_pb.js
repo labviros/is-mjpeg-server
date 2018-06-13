@@ -281,7 +281,7 @@ proto.is.common.PowerInfo.prototype.getVoltage = function() {
 
 /** @param {number} value */
 proto.is.common.PowerInfo.prototype.setVoltage = function(value) {
-  jspb.Message.setProto3FloatField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -296,7 +296,7 @@ proto.is.common.PowerInfo.prototype.getTerminalVoltage = function() {
 
 /** @param {number} value */
 proto.is.common.PowerInfo.prototype.setTerminalVoltage = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -340,7 +340,7 @@ proto.is.common.PowerInfo.prototype.getCharge = function() {
 
 /** @param {number} value */
 proto.is.common.PowerInfo.prototype.setCharge = function(value) {
-  jspb.Message.setProto3FloatField(this, 4, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -355,7 +355,7 @@ proto.is.common.PowerInfo.prototype.getCapacity = function() {
 
 /** @param {number} value */
 proto.is.common.PowerInfo.prototype.setCapacity = function(value) {
-  jspb.Message.setProto3FloatField(this, 5, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -370,7 +370,7 @@ proto.is.common.PowerInfo.prototype.getType = function() {
 
 /** @param {!proto.is.common.PowerInfo.BatteryType} value */
 proto.is.common.PowerInfo.prototype.setType = function(value) {
-  jspb.Message.setProto3EnumField(this, 6, value);
+  jspb.Message.setField(this, 6, value);
 };
 
 
@@ -385,7 +385,7 @@ proto.is.common.PowerInfo.prototype.getStatus = function() {
 
 /** @param {!proto.is.common.PowerInfo.BatteryStatus} value */
 proto.is.common.PowerInfo.prototype.setStatus = function(value) {
-  jspb.Message.setProto3EnumField(this, 7, value);
+  jspb.Message.setField(this, 7, value);
 };
 
 

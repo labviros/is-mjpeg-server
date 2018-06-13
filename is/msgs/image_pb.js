@@ -12,7 +12,7 @@ var goog = jspb;
 var global = Function('return this')();
 
 var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
-var common_pb = require('./common_pb.js');
+var is_msgs_common_pb = require('../../is/msgs/common_pb.js');
 goog.exportSymbol('proto.is.vision.BoundingPoly', null, global);
 goog.exportSymbol('proto.is.vision.ColorSpace', null, global);
 goog.exportSymbol('proto.is.vision.ColorSpaces', null, global);
@@ -423,7 +423,7 @@ proto.is.vision.ImageFormat.prototype.getFormat = function() {
 
 /** @param {!proto.is.vision.ImageFormats} value */
 proto.is.vision.ImageFormat.prototype.setFormat = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -607,7 +607,7 @@ proto.is.vision.Vertex.prototype.getX = function() {
 
 /** @param {number} value */
 proto.is.vision.Vertex.prototype.setX = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -622,7 +622,7 @@ proto.is.vision.Vertex.prototype.getY = function() {
 
 /** @param {number} value */
 proto.is.vision.Vertex.prototype.setY = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -944,7 +944,7 @@ proto.is.vision.Resolution.prototype.getHeight = function() {
 
 /** @param {number} value */
 proto.is.vision.Resolution.prototype.setHeight = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -959,7 +959,7 @@ proto.is.vision.Resolution.prototype.getWidth = function() {
 
 /** @param {number} value */
 proto.is.vision.Resolution.prototype.setWidth = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1101,7 +1101,7 @@ proto.is.vision.ColorSpace.prototype.getValue = function() {
 
 /** @param {!proto.is.vision.ColorSpaces} value */
 proto.is.vision.ColorSpace.prototype.setValue = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1446,7 +1446,7 @@ proto.is.vision.ImageAnnotation.toObject = function(includeInstance, msg) {
     label: jspb.Message.getFieldWithDefault(msg, 1, ""),
     score: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
     region: (f = msg.getRegion()) && proto.is.vision.BoundingPoly.toObject(includeInstance, f),
-    pose: (f = msg.getPose()) && common_pb.Pose.toObject(includeInstance, f)
+    pose: (f = msg.getPose()) && is_msgs_common_pb.Pose.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1497,8 +1497,8 @@ proto.is.vision.ImageAnnotation.deserializeBinaryFromReader = function(msg, read
       msg.setRegion(value);
       break;
     case 4:
-      var value = new common_pb.Pose;
-      reader.readMessage(value,common_pb.Pose.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Pose;
+      reader.readMessage(value,is_msgs_common_pb.Pose.deserializeBinaryFromReader);
       msg.setPose(value);
       break;
     default:
@@ -1557,7 +1557,7 @@ proto.is.vision.ImageAnnotation.serializeBinaryToWriter = function(message, writ
     writer.writeMessage(
       4,
       f,
-      common_pb.Pose.serializeBinaryToWriter
+      is_msgs_common_pb.Pose.serializeBinaryToWriter
     );
   }
 };
@@ -1574,7 +1574,7 @@ proto.is.vision.ImageAnnotation.prototype.getLabel = function() {
 
 /** @param {string} value */
 proto.is.vision.ImageAnnotation.prototype.setLabel = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1589,7 +1589,7 @@ proto.is.vision.ImageAnnotation.prototype.getScore = function() {
 
 /** @param {number} value */
 proto.is.vision.ImageAnnotation.prototype.setScore = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1629,7 +1629,7 @@ proto.is.vision.ImageAnnotation.prototype.hasRegion = function() {
  */
 proto.is.vision.ImageAnnotation.prototype.getPose = function() {
   return /** @type{?proto.is.common.Pose} */ (
-    jspb.Message.getWrapperField(this, common_pb.Pose, 4));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Pose, 4));
 };
 
 

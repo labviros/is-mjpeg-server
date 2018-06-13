@@ -12,19 +12,15 @@ var goog = jspb;
 var global = Function('return this')();
 
 var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
-goog.exportSymbol('proto.is.common.BrokerSubscription', null, global);
 goog.exportSymbol('proto.is.common.DataType', null, global);
 goog.exportSymbol('proto.is.common.FieldSelector', null, global);
 goog.exportSymbol('proto.is.common.Orientation', null, global);
 goog.exportSymbol('proto.is.common.Pose', null, global);
 goog.exportSymbol('proto.is.common.Position', null, global);
-goog.exportSymbol('proto.is.common.QueueSettings', null, global);
 goog.exportSymbol('proto.is.common.SamplingSettings', null, global);
 goog.exportSymbol('proto.is.common.Shape', null, global);
 goog.exportSymbol('proto.is.common.Shape.Dimension', null, global);
 goog.exportSymbol('proto.is.common.Speed', null, global);
-goog.exportSymbol('proto.is.common.Status', null, global);
-goog.exportSymbol('proto.is.common.StatusCode', null, global);
 goog.exportSymbol('proto.is.common.SyncRequest', null, global);
 goog.exportSymbol('proto.is.common.Tensor', null, global);
 
@@ -38,494 +34,13 @@ goog.exportSymbol('proto.is.common.Tensor', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.is.common.QueueSettings = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.is.common.QueueSettings.repeatedFields_, null);
-};
-goog.inherits(proto.is.common.QueueSettings, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.is.common.QueueSettings.displayName = 'proto.is.common.QueueSettings';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.is.common.QueueSettings.repeatedFields_ = [2];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.is.common.QueueSettings.prototype.toObject = function(opt_includeInstance) {
-  return proto.is.common.QueueSettings.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.is.common.QueueSettings} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.QueueSettings.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    topicsList: jspb.Message.getRepeatedField(msg, 2),
-    prefetchCount: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    exclusive: jspb.Message.getFieldWithDefault(msg, 4, false)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.is.common.QueueSettings}
- */
-proto.is.common.QueueSettings.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.is.common.QueueSettings;
-  return proto.is.common.QueueSettings.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.is.common.QueueSettings} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.is.common.QueueSettings}
- */
-proto.is.common.QueueSettings.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addTopics(value);
-      break;
-    case 3:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setPrefetchCount(value);
-      break;
-    case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setExclusive(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.is.common.QueueSettings.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.is.common.QueueSettings.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.is.common.QueueSettings} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.QueueSettings.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getTopicsList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      2,
-      f
-    );
-  }
-  f = message.getPrefetchCount();
-  if (f !== 0) {
-    writer.writeInt32(
-      3,
-      f
-    );
-  }
-  f = message.getExclusive();
-  if (f) {
-    writer.writeBool(
-      4,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string name = 1;
- * @return {string}
- */
-proto.is.common.QueueSettings.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/** @param {string} value */
-proto.is.common.QueueSettings.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * repeated string topics = 2;
- * @return {!Array.<string>}
- */
-proto.is.common.QueueSettings.prototype.getTopicsList = function() {
-  return /** @type {!Array.<string>} */ (jspb.Message.getRepeatedField(this, 2));
-};
-
-
-/** @param {!Array.<string>} value */
-proto.is.common.QueueSettings.prototype.setTopicsList = function(value) {
-  jspb.Message.setField(this, 2, value || []);
-};
-
-
-/**
- * @param {!string} value
- * @param {number=} opt_index
- */
-proto.is.common.QueueSettings.prototype.addTopics = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
-};
-
-
-proto.is.common.QueueSettings.prototype.clearTopicsList = function() {
-  this.setTopicsList([]);
-};
-
-
-/**
- * optional int32 prefetch_count = 3;
- * @return {number}
- */
-proto.is.common.QueueSettings.prototype.getPrefetchCount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
-};
-
-
-/** @param {number} value */
-proto.is.common.QueueSettings.prototype.setPrefetchCount = function(value) {
-  jspb.Message.setProto3IntField(this, 3, value);
-};
-
-
-/**
- * optional bool exclusive = 4;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.is.common.QueueSettings.prototype.getExclusive = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
-};
-
-
-/** @param {boolean} value */
-proto.is.common.QueueSettings.prototype.setExclusive = function(value) {
-  jspb.Message.setProto3BooleanField(this, 4, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.is.common.BrokerSubscription = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.is.common.BrokerSubscription.repeatedFields_, null);
-};
-goog.inherits(proto.is.common.BrokerSubscription, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.is.common.BrokerSubscription.displayName = 'proto.is.common.BrokerSubscription';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.is.common.BrokerSubscription.repeatedFields_ = [1,2];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.is.common.BrokerSubscription.prototype.toObject = function(opt_includeInstance) {
-  return proto.is.common.BrokerSubscription.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.is.common.BrokerSubscription} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.BrokerSubscription.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    urisList: jspb.Message.getRepeatedField(msg, 1),
-    queuesList: jspb.Message.toObjectList(msg.getQueuesList(),
-    proto.is.common.QueueSettings.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.is.common.BrokerSubscription}
- */
-proto.is.common.BrokerSubscription.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.is.common.BrokerSubscription;
-  return proto.is.common.BrokerSubscription.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.is.common.BrokerSubscription} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.is.common.BrokerSubscription}
- */
-proto.is.common.BrokerSubscription.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addUris(value);
-      break;
-    case 2:
-      var value = new proto.is.common.QueueSettings;
-      reader.readMessage(value,proto.is.common.QueueSettings.deserializeBinaryFromReader);
-      msg.addQueues(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.is.common.BrokerSubscription.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.is.common.BrokerSubscription.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.is.common.BrokerSubscription} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.BrokerSubscription.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getUrisList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      1,
-      f
-    );
-  }
-  f = message.getQueuesList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      2,
-      f,
-      proto.is.common.QueueSettings.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated string uris = 1;
- * @return {!Array.<string>}
- */
-proto.is.common.BrokerSubscription.prototype.getUrisList = function() {
-  return /** @type {!Array.<string>} */ (jspb.Message.getRepeatedField(this, 1));
-};
-
-
-/** @param {!Array.<string>} value */
-proto.is.common.BrokerSubscription.prototype.setUrisList = function(value) {
-  jspb.Message.setField(this, 1, value || []);
-};
-
-
-/**
- * @param {!string} value
- * @param {number=} opt_index
- */
-proto.is.common.BrokerSubscription.prototype.addUris = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 1, value, opt_index);
-};
-
-
-proto.is.common.BrokerSubscription.prototype.clearUrisList = function() {
-  this.setUrisList([]);
-};
-
-
-/**
- * repeated QueueSettings queues = 2;
- * @return {!Array.<!proto.is.common.QueueSettings>}
- */
-proto.is.common.BrokerSubscription.prototype.getQueuesList = function() {
-  return /** @type{!Array.<!proto.is.common.QueueSettings>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.is.common.QueueSettings, 2));
-};
-
-
-/** @param {!Array.<!proto.is.common.QueueSettings>} value */
-proto.is.common.BrokerSubscription.prototype.setQueuesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 2, value);
-};
-
-
-/**
- * @param {!proto.is.common.QueueSettings=} opt_value
- * @param {number=} opt_index
- * @return {!proto.is.common.QueueSettings}
- */
-proto.is.common.BrokerSubscription.prototype.addQueues = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.is.common.QueueSettings, opt_index);
-};
-
-
-proto.is.common.BrokerSubscription.prototype.clearQueuesList = function() {
-  this.setQueuesList([]);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.is.common.SamplingSettings = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, proto.is.common.SamplingSettings.oneofGroups_);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.is.common.SamplingSettings, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.is.common.SamplingSettings.displayName = 'proto.is.common.SamplingSettings';
 }
-/**
- * Oneof group definitions for this message. Each group defines the field
- * numbers belonging to that group. When of these fields' value is set, all
- * other fields in the group are cleared. During deserialization, if multiple
- * fields are encountered for a group, only the last value seen will be kept.
- * @private {!Array<!Array<number>>}
- * @const
- */
-proto.is.common.SamplingSettings.oneofGroups_ = [[1,2]];
-
-/**
- * @enum {number}
- */
-proto.is.common.SamplingSettings.RateCase = {
-  RATE_NOT_SET: 0,
-  FREQUENCY: 1,
-  PERIOD: 2
-};
-
-/**
- * @return {proto.is.common.SamplingSettings.RateCase}
- */
-proto.is.common.SamplingSettings.prototype.getRateCase = function() {
-  return /** @type {proto.is.common.SamplingSettings.RateCase} */(jspb.Message.computeOneofCase(this, proto.is.common.SamplingSettings.oneofGroups_[0]));
-};
-
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -555,8 +70,7 @@ proto.is.common.SamplingSettings.prototype.toObject = function(opt_includeInstan
  */
 proto.is.common.SamplingSettings.toObject = function(includeInstance, msg) {
   var f, obj = {
-    frequency: +jspb.Message.getFieldWithDefault(msg, 1, 0.0),
-    period: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
+    frequency: (f = msg.getFrequency()) && google_protobuf_wrappers_pb.FloatValue.toObject(includeInstance, f),
     delay: (f = msg.getDelay()) && google_protobuf_wrappers_pb.FloatValue.toObject(includeInstance, f)
   };
 
@@ -595,14 +109,11 @@ proto.is.common.SamplingSettings.deserializeBinaryFromReader = function(msg, rea
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readFloat());
+      var value = new google_protobuf_wrappers_pb.FloatValue;
+      reader.readMessage(value,google_protobuf_wrappers_pb.FloatValue.deserializeBinaryFromReader);
       msg.setFrequency(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.setPeriod(value);
-      break;
-    case 3:
       var value = new google_protobuf_wrappers_pb.FloatValue;
       reader.readMessage(value,google_protobuf_wrappers_pb.FloatValue.deserializeBinaryFromReader);
       msg.setDelay(value);
@@ -636,24 +147,18 @@ proto.is.common.SamplingSettings.prototype.serializeBinary = function() {
  */
 proto.is.common.SamplingSettings.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = /** @type {number} */ (jspb.Message.getField(message, 1));
+  f = message.getFrequency();
   if (f != null) {
-    writer.writeFloat(
+    writer.writeMessage(
       1,
-      f
-    );
-  }
-  f = /** @type {number} */ (jspb.Message.getField(message, 2));
-  if (f != null) {
-    writer.writeFloat(
-      2,
-      f
+      f,
+      google_protobuf_wrappers_pb.FloatValue.serializeBinaryToWriter
     );
   }
   f = message.getDelay();
   if (f != null) {
     writer.writeMessage(
-      3,
+      2,
       f,
       google_protobuf_wrappers_pb.FloatValue.serializeBinaryToWriter
     );
@@ -662,22 +167,23 @@ proto.is.common.SamplingSettings.serializeBinaryToWriter = function(message, wri
 
 
 /**
- * optional float frequency = 1;
- * @return {number}
+ * optional google.protobuf.FloatValue frequency = 1;
+ * @return {?proto.google.protobuf.FloatValue}
  */
 proto.is.common.SamplingSettings.prototype.getFrequency = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 1, 0.0));
+  return /** @type{?proto.google.protobuf.FloatValue} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.FloatValue, 1));
 };
 
 
-/** @param {number} value */
+/** @param {?proto.google.protobuf.FloatValue|undefined} value */
 proto.is.common.SamplingSettings.prototype.setFrequency = function(value) {
-  jspb.Message.setOneofField(this, 1, proto.is.common.SamplingSettings.oneofGroups_[0], value);
+  jspb.Message.setWrapperField(this, 1, value);
 };
 
 
 proto.is.common.SamplingSettings.prototype.clearFrequency = function() {
-  jspb.Message.setOneofField(this, 1, proto.is.common.SamplingSettings.oneofGroups_[0], undefined);
+  this.setFrequency(undefined);
 };
 
 
@@ -691,47 +197,18 @@ proto.is.common.SamplingSettings.prototype.hasFrequency = function() {
 
 
 /**
- * optional float period = 2;
- * @return {number}
- */
-proto.is.common.SamplingSettings.prototype.getPeriod = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
-};
-
-
-/** @param {number} value */
-proto.is.common.SamplingSettings.prototype.setPeriod = function(value) {
-  jspb.Message.setOneofField(this, 2, proto.is.common.SamplingSettings.oneofGroups_[0], value);
-};
-
-
-proto.is.common.SamplingSettings.prototype.clearPeriod = function() {
-  jspb.Message.setOneofField(this, 2, proto.is.common.SamplingSettings.oneofGroups_[0], undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.is.common.SamplingSettings.prototype.hasPeriod = function() {
-  return jspb.Message.getField(this, 2) != null;
-};
-
-
-/**
- * optional google.protobuf.FloatValue delay = 3;
+ * optional google.protobuf.FloatValue delay = 2;
  * @return {?proto.google.protobuf.FloatValue}
  */
 proto.is.common.SamplingSettings.prototype.getDelay = function() {
   return /** @type{?proto.google.protobuf.FloatValue} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.FloatValue, 3));
+    jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.FloatValue, 2));
 };
 
 
 /** @param {?proto.google.protobuf.FloatValue|undefined} value */
 proto.is.common.SamplingSettings.prototype.setDelay = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
+  jspb.Message.setWrapperField(this, 2, value);
 };
 
 
@@ -745,7 +222,7 @@ proto.is.common.SamplingSettings.prototype.clearDelay = function() {
  * @return {!boolean}
  */
 proto.is.common.SamplingSettings.prototype.hasDelay = function() {
-  return jspb.Message.getField(this, 3) != null;
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
@@ -1130,175 +607,6 @@ proto.is.common.FieldSelector.prototype.clearFieldsList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.is.common.Status = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.is.common.Status, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.is.common.Status.displayName = 'proto.is.common.Status';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.is.common.Status.prototype.toObject = function(opt_includeInstance) {
-  return proto.is.common.Status.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.is.common.Status} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.Status.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    why: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.is.common.Status}
- */
-proto.is.common.Status.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.is.common.Status;
-  return proto.is.common.Status.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.is.common.Status} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.is.common.Status}
- */
-proto.is.common.Status.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {!proto.is.common.StatusCode} */ (reader.readEnum());
-      msg.setCode(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setWhy(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.is.common.Status.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.is.common.Status.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.is.common.Status} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.is.common.Status.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCode();
-  if (f !== 0.0) {
-    writer.writeEnum(
-      1,
-      f
-    );
-  }
-  f = message.getWhy();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional StatusCode code = 1;
- * @return {!proto.is.common.StatusCode}
- */
-proto.is.common.Status.prototype.getCode = function() {
-  return /** @type {!proto.is.common.StatusCode} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {!proto.is.common.StatusCode} value */
-proto.is.common.Status.prototype.setCode = function(value) {
-  jspb.Message.setProto3EnumField(this, 1, value);
-};
-
-
-/**
- * optional string why = 2;
- * @return {string}
- */
-proto.is.common.Status.prototype.getWhy = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.is.common.Status.prototype.setWhy = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.is.common.Shape = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, proto.is.common.Shape.repeatedFields_, null);
 };
@@ -1575,7 +883,7 @@ proto.is.common.Shape.Dimension.prototype.getSize = function() {
 
 /** @param {number} value */
 proto.is.common.Shape.Dimension.prototype.setSize = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1590,7 +898,7 @@ proto.is.common.Shape.Dimension.prototype.getName = function() {
 
 /** @param {string} value */
 proto.is.common.Shape.Dimension.prototype.setName = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1862,7 +1170,7 @@ proto.is.common.Tensor.prototype.getType = function() {
 
 /** @param {!proto.is.common.DataType} value */
 proto.is.common.Tensor.prototype.setType = function(value) {
-  jspb.Message.setProto3EnumField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2144,7 +1452,7 @@ proto.is.common.Position.prototype.getX = function() {
 
 /** @param {number} value */
 proto.is.common.Position.prototype.setX = function(value) {
-  jspb.Message.setProto3FloatField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2159,7 +1467,7 @@ proto.is.common.Position.prototype.getY = function() {
 
 /** @param {number} value */
 proto.is.common.Position.prototype.setY = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2174,7 +1482,7 @@ proto.is.common.Position.prototype.getZ = function() {
 
 /** @param {number} value */
 proto.is.common.Position.prototype.setZ = function(value) {
-  jspb.Message.setProto3FloatField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -2340,7 +1648,7 @@ proto.is.common.Orientation.prototype.getYaw = function() {
 
 /** @param {number} value */
 proto.is.common.Orientation.prototype.setYaw = function(value) {
-  jspb.Message.setProto3FloatField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2355,7 +1663,7 @@ proto.is.common.Orientation.prototype.getPitch = function() {
 
 /** @param {number} value */
 proto.is.common.Orientation.prototype.setPitch = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -2370,7 +1678,7 @@ proto.is.common.Orientation.prototype.getRoll = function() {
 
 /** @param {number} value */
 proto.is.common.Orientation.prototype.setRoll = function(value) {
-  jspb.Message.setProto3FloatField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -2727,7 +2035,7 @@ proto.is.common.Speed.prototype.getLinear = function() {
 
 /** @param {number} value */
 proto.is.common.Speed.prototype.setLinear = function(value) {
-  jspb.Message.setProto3FloatField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -2742,28 +2050,9 @@ proto.is.common.Speed.prototype.getAngular = function() {
 
 /** @param {number} value */
 proto.is.common.Speed.prototype.setAngular = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
-
-/**
- * @enum {number}
- */
-proto.is.common.StatusCode = {
-  UNKNOWN: 0,
-  OK: 1,
-  CANCELLED: 2,
-  INVALID_ARGUMENT: 3,
-  DEADLINE_EXCEEDED: 4,
-  NOT_FOUND: 5,
-  ALREADY_EXISTS: 6,
-  PERMISSION_DENIED: 7,
-  UNAUTHENTICATED: 8,
-  FAILED_PRECONDITION: 9,
-  OUT_OF_RANGE: 10,
-  UNIMPLEMENTED: 11,
-  INTERNAL_ERROR: 12
-};
 
 /**
  * @enum {number}

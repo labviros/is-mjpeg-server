@@ -11,8 +11,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var common_pb = require('./common_pb.js');
-var image_pb = require('./image_pb.js');
+var is_msgs_common_pb = require('../../is/msgs/common_pb.js');
+var is_msgs_image_pb = require('../../is/msgs/image_pb.js');
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.exportSymbol('proto.is.vision.CameraCalibration', null, global);
 goog.exportSymbol('proto.is.vision.CameraConfig', null, global);
@@ -172,7 +172,7 @@ proto.is.vision.CameraSetting.prototype.getAutomatic = function() {
 
 /** @param {boolean} value */
 proto.is.vision.CameraSetting.prototype.setAutomatic = function(value) {
-  jspb.Message.setProto3BooleanField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -187,7 +187,7 @@ proto.is.vision.CameraSetting.prototype.getRatio = function() {
 
 /** @param {number} value */
 proto.is.vision.CameraSetting.prototype.setRatio = function(value) {
-  jspb.Message.setProto3FloatField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -925,8 +925,8 @@ proto.is.vision.CameraConfig.prototype.toObject = function(opt_includeInstance) 
  */
 proto.is.vision.CameraConfig.toObject = function(includeInstance, msg) {
   var f, obj = {
-    sampling: (f = msg.getSampling()) && common_pb.SamplingSettings.toObject(includeInstance, f),
-    image: (f = msg.getImage()) && image_pb.ImageSettings.toObject(includeInstance, f),
+    sampling: (f = msg.getSampling()) && is_msgs_common_pb.SamplingSettings.toObject(includeInstance, f),
+    image: (f = msg.getImage()) && is_msgs_image_pb.ImageSettings.toObject(includeInstance, f),
     camera: (f = msg.getCamera()) && proto.is.vision.CameraSettings.toObject(includeInstance, f)
   };
 
@@ -965,13 +965,13 @@ proto.is.vision.CameraConfig.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new common_pb.SamplingSettings;
-      reader.readMessage(value,common_pb.SamplingSettings.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.SamplingSettings;
+      reader.readMessage(value,is_msgs_common_pb.SamplingSettings.deserializeBinaryFromReader);
       msg.setSampling(value);
       break;
     case 2:
-      var value = new image_pb.ImageSettings;
-      reader.readMessage(value,image_pb.ImageSettings.deserializeBinaryFromReader);
+      var value = new is_msgs_image_pb.ImageSettings;
+      reader.readMessage(value,is_msgs_image_pb.ImageSettings.deserializeBinaryFromReader);
       msg.setImage(value);
       break;
     case 3:
@@ -1013,7 +1013,7 @@ proto.is.vision.CameraConfig.serializeBinaryToWriter = function(message, writer)
     writer.writeMessage(
       1,
       f,
-      common_pb.SamplingSettings.serializeBinaryToWriter
+      is_msgs_common_pb.SamplingSettings.serializeBinaryToWriter
     );
   }
   f = message.getImage();
@@ -1021,7 +1021,7 @@ proto.is.vision.CameraConfig.serializeBinaryToWriter = function(message, writer)
     writer.writeMessage(
       2,
       f,
-      image_pb.ImageSettings.serializeBinaryToWriter
+      is_msgs_image_pb.ImageSettings.serializeBinaryToWriter
     );
   }
   f = message.getCamera();
@@ -1041,7 +1041,7 @@ proto.is.vision.CameraConfig.serializeBinaryToWriter = function(message, writer)
  */
 proto.is.vision.CameraConfig.prototype.getSampling = function() {
   return /** @type{?proto.is.common.SamplingSettings} */ (
-    jspb.Message.getWrapperField(this, common_pb.SamplingSettings, 1));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.SamplingSettings, 1));
 };
 
 
@@ -1071,7 +1071,7 @@ proto.is.vision.CameraConfig.prototype.hasSampling = function() {
  */
 proto.is.vision.CameraConfig.prototype.getImage = function() {
   return /** @type{?proto.is.vision.ImageSettings} */ (
-    jspb.Message.getWrapperField(this, image_pb.ImageSettings, 2));
+    jspb.Message.getWrapperField(this, is_msgs_image_pb.ImageSettings, 2));
 };
 
 
@@ -1137,12 +1137,19 @@ proto.is.vision.CameraConfig.prototype.hasCamera = function() {
  * @constructor
  */
 proto.is.vision.CameraCalibration = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.is.vision.CameraCalibration.repeatedFields_, null);
 };
 goog.inherits(proto.is.vision.CameraCalibration, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.is.vision.CameraCalibration.displayName = 'proto.is.vision.CameraCalibration';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.is.vision.CameraCalibration.repeatedFields_ = [7];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -1175,10 +1182,11 @@ proto.is.vision.CameraCalibration.toObject = function(includeInstance, msg) {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     calibratedAt: (f = msg.getCalibratedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     error: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
-    resolution: (f = msg.getResolution()) && image_pb.Resolution.toObject(includeInstance, f),
-    intrinsic: (f = msg.getIntrinsic()) && common_pb.Tensor.toObject(includeInstance, f),
-    distortion: (f = msg.getDistortion()) && common_pb.Tensor.toObject(includeInstance, f),
-    extrinsic: (f = msg.getExtrinsic()) && proto.is.vision.FrameTransformation.toObject(includeInstance, f)
+    resolution: (f = msg.getResolution()) && is_msgs_image_pb.Resolution.toObject(includeInstance, f),
+    intrinsic: (f = msg.getIntrinsic()) && is_msgs_common_pb.Tensor.toObject(includeInstance, f),
+    distortion: (f = msg.getDistortion()) && is_msgs_common_pb.Tensor.toObject(includeInstance, f),
+    extrinsicList: jspb.Message.toObjectList(msg.getExtrinsicList(),
+    proto.is.vision.FrameTransformation.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1229,24 +1237,24 @@ proto.is.vision.CameraCalibration.deserializeBinaryFromReader = function(msg, re
       msg.setError(value);
       break;
     case 4:
-      var value = new image_pb.Resolution;
-      reader.readMessage(value,image_pb.Resolution.deserializeBinaryFromReader);
+      var value = new is_msgs_image_pb.Resolution;
+      reader.readMessage(value,is_msgs_image_pb.Resolution.deserializeBinaryFromReader);
       msg.setResolution(value);
       break;
     case 5:
-      var value = new common_pb.Tensor;
-      reader.readMessage(value,common_pb.Tensor.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Tensor;
+      reader.readMessage(value,is_msgs_common_pb.Tensor.deserializeBinaryFromReader);
       msg.setIntrinsic(value);
       break;
     case 6:
-      var value = new common_pb.Tensor;
-      reader.readMessage(value,common_pb.Tensor.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Tensor;
+      reader.readMessage(value,is_msgs_common_pb.Tensor.deserializeBinaryFromReader);
       msg.setDistortion(value);
       break;
     case 7:
       var value = new proto.is.vision.FrameTransformation;
       reader.readMessage(value,proto.is.vision.FrameTransformation.deserializeBinaryFromReader);
-      msg.setExtrinsic(value);
+      msg.addExtrinsic(value);
       break;
     default:
       reader.skipField();
@@ -1304,7 +1312,7 @@ proto.is.vision.CameraCalibration.serializeBinaryToWriter = function(message, wr
     writer.writeMessage(
       4,
       f,
-      image_pb.Resolution.serializeBinaryToWriter
+      is_msgs_image_pb.Resolution.serializeBinaryToWriter
     );
   }
   f = message.getIntrinsic();
@@ -1312,7 +1320,7 @@ proto.is.vision.CameraCalibration.serializeBinaryToWriter = function(message, wr
     writer.writeMessage(
       5,
       f,
-      common_pb.Tensor.serializeBinaryToWriter
+      is_msgs_common_pb.Tensor.serializeBinaryToWriter
     );
   }
   f = message.getDistortion();
@@ -1320,12 +1328,12 @@ proto.is.vision.CameraCalibration.serializeBinaryToWriter = function(message, wr
     writer.writeMessage(
       6,
       f,
-      common_pb.Tensor.serializeBinaryToWriter
+      is_msgs_common_pb.Tensor.serializeBinaryToWriter
     );
   }
-  f = message.getExtrinsic();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getExtrinsicList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
       7,
       f,
       proto.is.vision.FrameTransformation.serializeBinaryToWriter
@@ -1345,7 +1353,7 @@ proto.is.vision.CameraCalibration.prototype.getId = function() {
 
 /** @param {string} value */
 proto.is.vision.CameraCalibration.prototype.setId = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1390,7 +1398,7 @@ proto.is.vision.CameraCalibration.prototype.getError = function() {
 
 /** @param {number} value */
 proto.is.vision.CameraCalibration.prototype.setError = function(value) {
-  jspb.Message.setProto3FloatField(this, 3, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -1400,7 +1408,7 @@ proto.is.vision.CameraCalibration.prototype.setError = function(value) {
  */
 proto.is.vision.CameraCalibration.prototype.getResolution = function() {
   return /** @type{?proto.is.vision.Resolution} */ (
-    jspb.Message.getWrapperField(this, image_pb.Resolution, 4));
+    jspb.Message.getWrapperField(this, is_msgs_image_pb.Resolution, 4));
 };
 
 
@@ -1430,7 +1438,7 @@ proto.is.vision.CameraCalibration.prototype.hasResolution = function() {
  */
 proto.is.vision.CameraCalibration.prototype.getIntrinsic = function() {
   return /** @type{?proto.is.common.Tensor} */ (
-    jspb.Message.getWrapperField(this, common_pb.Tensor, 5));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Tensor, 5));
 };
 
 
@@ -1460,7 +1468,7 @@ proto.is.vision.CameraCalibration.prototype.hasIntrinsic = function() {
  */
 proto.is.vision.CameraCalibration.prototype.getDistortion = function() {
   return /** @type{?proto.is.common.Tensor} */ (
-    jspb.Message.getWrapperField(this, common_pb.Tensor, 6));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Tensor, 6));
 };
 
 
@@ -1485,32 +1493,33 @@ proto.is.vision.CameraCalibration.prototype.hasDistortion = function() {
 
 
 /**
- * optional FrameTransformation extrinsic = 7;
- * @return {?proto.is.vision.FrameTransformation}
+ * repeated FrameTransformation extrinsic = 7;
+ * @return {!Array.<!proto.is.vision.FrameTransformation>}
  */
-proto.is.vision.CameraCalibration.prototype.getExtrinsic = function() {
-  return /** @type{?proto.is.vision.FrameTransformation} */ (
-    jspb.Message.getWrapperField(this, proto.is.vision.FrameTransformation, 7));
+proto.is.vision.CameraCalibration.prototype.getExtrinsicList = function() {
+  return /** @type{!Array.<!proto.is.vision.FrameTransformation>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.is.vision.FrameTransformation, 7));
 };
 
 
-/** @param {?proto.is.vision.FrameTransformation|undefined} value */
-proto.is.vision.CameraCalibration.prototype.setExtrinsic = function(value) {
-  jspb.Message.setWrapperField(this, 7, value);
-};
-
-
-proto.is.vision.CameraCalibration.prototype.clearExtrinsic = function() {
-  this.setExtrinsic(undefined);
+/** @param {!Array.<!proto.is.vision.FrameTransformation>} value */
+proto.is.vision.CameraCalibration.prototype.setExtrinsicList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 7, value);
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
+ * @param {!proto.is.vision.FrameTransformation=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.is.vision.FrameTransformation}
  */
-proto.is.vision.CameraCalibration.prototype.hasExtrinsic = function() {
-  return jspb.Message.getField(this, 7) != null;
+proto.is.vision.CameraCalibration.prototype.addExtrinsic = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.is.vision.FrameTransformation, opt_index);
+};
+
+
+proto.is.vision.CameraCalibration.prototype.clearExtrinsicList = function() {
+  this.setExtrinsicList([]);
 };
 
 
@@ -1563,7 +1572,7 @@ proto.is.vision.FrameTransformation.toObject = function(includeInstance, msg) {
   var f, obj = {
     from: jspb.Message.getFieldWithDefault(msg, 1, ""),
     to: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    tf: (f = msg.getTf()) && common_pb.Tensor.toObject(includeInstance, f)
+    tf: (f = msg.getTf()) && is_msgs_common_pb.Tensor.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1609,8 +1618,8 @@ proto.is.vision.FrameTransformation.deserializeBinaryFromReader = function(msg, 
       msg.setTo(value);
       break;
     case 3:
-      var value = new common_pb.Tensor;
-      reader.readMessage(value,common_pb.Tensor.deserializeBinaryFromReader);
+      var value = new is_msgs_common_pb.Tensor;
+      reader.readMessage(value,is_msgs_common_pb.Tensor.deserializeBinaryFromReader);
       msg.setTf(value);
       break;
     default:
@@ -1661,7 +1670,7 @@ proto.is.vision.FrameTransformation.serializeBinaryToWriter = function(message, 
     writer.writeMessage(
       3,
       f,
-      common_pb.Tensor.serializeBinaryToWriter
+      is_msgs_common_pb.Tensor.serializeBinaryToWriter
     );
   }
 };
@@ -1678,7 +1687,7 @@ proto.is.vision.FrameTransformation.prototype.getFrom = function() {
 
 /** @param {string} value */
 proto.is.vision.FrameTransformation.prototype.setFrom = function(value) {
-  jspb.Message.setProto3StringField(this, 1, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
@@ -1693,7 +1702,7 @@ proto.is.vision.FrameTransformation.prototype.getTo = function() {
 
 /** @param {string} value */
 proto.is.vision.FrameTransformation.prototype.setTo = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
@@ -1703,7 +1712,7 @@ proto.is.vision.FrameTransformation.prototype.setTo = function(value) {
  */
 proto.is.vision.FrameTransformation.prototype.getTf = function() {
   return /** @type{?proto.is.common.Tensor} */ (
-    jspb.Message.getWrapperField(this, common_pb.Tensor, 3));
+    jspb.Message.getWrapperField(this, is_msgs_common_pb.Tensor, 3));
 };
 
 
