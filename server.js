@@ -1,6 +1,4 @@
 const amqp = require('amqplib/callback_api');
-const Rx = require('rxjs');
-const http = require('http');
 const uuidv1 = require('uuid/v1');
 const _ = require('lodash');
 const express = require('express');
@@ -15,20 +13,21 @@ const exchange = 'is';
 const queue = `camera-viewer-server/${uuidv1()}`
 const port = _.defaultTo(process.env.IS_PORT, 3000);
 
+
 amqp.connect(broker_uri, (err, connection) => {
   connection.createChannel((err, channel) => {
     channel.assertQueue(queue, { durable: false, autoDelete: true });
     channel.bindQueue(queue, exchange, queue);
 
-    const msgs = Rx.Observable.create((observer) => {
-      channel.consume(queue, (msg) => {
-        observer.next(msg)
-      }, { noAck: true });
-    })
-      .publish()
-      .refCount();
-
     let subscriptions = {} // ref count for subscriptions
+
+    channel.consume(queue, (msg) => {
+      _.forEach(subscriptions[msg.fields.routingKey], (s) => {
+        let data = image.Image.deserializeBinary(new Uint8Array(msg.content)).getData();
+        s.response.write(`--myboundary\nContent-Type: image/jpg\nContent-length: ${data.length}\n\n`);
+        s.response.write(new Buffer(data))
+      })
+    }, { noAck: true });
 
     const configureCamera = (id, query) => {
       let config = new camera.CameraConfig();
@@ -57,46 +56,47 @@ amqp.connect(broker_uri, (err, connection) => {
           replyTo: queue
         });
       }
-
-      console.log(`[+][${new Date()}][${id}]`)
     };
 
     const server = express();
 
-    server.get('/:id?', (req, res) => {
-      let id = _.defaultTo(req.params.id, 0);
+    server.get('/:id?', (request, response) => {
+      let id = _.defaultTo(request.params.id, 0);
 
       let isGatewayId = !_.isNaN(parseInt(id));
       let topic = isGatewayId ? `CameraGateway.${id}.Frame` : id;
       if (isGatewayId) {
-        configureCamera(id, req.query);
+        configureCamera(id, request.query);
       }
 
-      subscriptions[topic] = _.has(subscriptions, topic) ? subscriptions[topic] + 1 : 1;
-      if (subscriptions[topic] == 1) {
+      console.log(`[${new Date()}] ev=NewClient id=${id}`);
+
+      const newSubscription = !_.has(subscriptions, topic);
+      if (newSubscription) {
+        console.log(`[${new Date()}] ev=NewSub topic=${topic}`);
+        subscriptions[topic] = [];
         channel.bindQueue(queue, exchange, topic);
       }
 
-      res.writeHead(200, {
+      const requestId = uuidv1();
+      subscriptions[topic].push({ requestId, response });
+
+      response.writeHead(200, {
         'Content-Type': 'multipart/x-mixed-replace; boundary=--myboundary',
         'Cache-Control': 'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0',
         'Pragma': 'no-cache',
         'Connection': 'close'
       });
 
-      let stream = msgs.filter(msg => msg.fields.routingKey == topic)
-        .throttle(ev => Rx.Observable.interval(1000 / 15))
-        .subscribe((msg) => {
-          let data = image.Image.deserializeBinary(new Uint8Array(msg.content)).getData();
-          res.write(`--myboundary\nContent-Type: image/jpg\nContent-length: ${data.length}\n\n`);
-          res.write(new Buffer(data))
-        });
+      request.on('close', () => {
+        _.remove(subscriptions[topic], (s) => s.requestId == requestId);
 
-      req.on('close', () => {
-        console.log(`[-][${new Date()}][${id}]`);
-        stream.unsubscribe()
-        subscriptions[topic] -= 1;
-        if (subscriptions[topic] == 0) { channel.unbindQueue(queue, exchange, topic); }
+        console.log(`[${new Date()}] ev=DelClient id=${id}`);
+        if (subscriptions[topic].length == 0) {
+          console.log(`[${new Date()}] ev=DelSub topic=${topic}`);
+          channel.unbindQueue(queue, exchange, topic);
+          delete subscriptions[topic];
+        }
       });
     });
 
